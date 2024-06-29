@@ -16,6 +16,13 @@ PLAYER_VEL= 5
 
 window = pygame.display.set_mode((WIDTH,HEIGHT))
 
+def flip(sprites):
+    return [pygame.transform.flip(sprite,True,False)for sprite in sprites]
+
+def load_sprite_sheets(dir1, dir2, width, height, direction=False):
+    path = join('assets',dir1,dir2)
+    images = [f for f in listdir(path) if isfile(join(path, f))]
+
 class Player(pygame.sprite.Sprite):
     COLOR=(255,0,0)
     GRAVITY=1
