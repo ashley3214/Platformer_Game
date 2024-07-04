@@ -41,12 +41,12 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
         else:
             all_sprites[image.replace('.png','')]=sprites
 
-        return all_sprites
+    return all_sprites
 
 class Player(pygame.sprite.Sprite):
     COLOR=(255,0,0)
     GRAVITY=1 #
-    SPRITES= load_sprite_sheets('MainCharacters','MaskDude',32, 32, True)
+    SPRITES= load_sprite_sheets('MainCharacters','VirtualGuy',32, 32, True)
 
     def __init__(self,x,y,width,height):
         self.rect= pygame.Rect(x,y,width,height)
@@ -122,7 +122,7 @@ def handle_move(player):
 
 def main(window):
     clock = pygame.time.Clock()
-    background, bg_image =get_background('Pink.png')
+    background, bg_image =get_background('Stone.png')
 
     player=Player(100,100,50,50)
 
