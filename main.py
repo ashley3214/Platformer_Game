@@ -46,7 +46,7 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
 class Player(pygame.sprite.Sprite):
     COLOR=(255,0,0)
     GRAVITY=1 #
-    SPRITES= load_sprite_sheets('MainCharacters','VirtualGuy',32, 32, True)
+    SPRITES= load_sprite_sheets('MainCharacters','PinkMan',32, 32, True)
     ANIMATION_DELAY = 4
 
     def __init__(self,x,y,width,height):
@@ -92,6 +92,9 @@ class Player(pygame.sprite.Sprite):
         self.sprite = sprites[sprite_index]
         self.animation_count += 1
 
+    def update():
+        self.rect = self.sprite.get_rect(topleft=(self.rect.x, self.rect.y))
+        self.mask = pygame.mask.from_surface
 
     def draw(self, win):
        
