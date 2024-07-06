@@ -91,15 +91,37 @@ class Player(pygame.sprite.Sprite):
         sprite_index= (self.animation_count // self.ANIMATION_DELAY) % len(sprites) 
         self.sprite = sprites[sprite_index]
         self.animation_count += 1
+        self.update()
 
-    def update():
+    def update(self):
         self.rect = self.sprite.get_rect(topleft=(self.rect.x, self.rect.y))
-        self.mask = pygame.mask.from_surface
+        self.mask = pygame.mask.from_surface(self.sprite)
 
     def draw(self, win):
-       
         win.blit(self.sprite, (self.rect.x,self.rect.y))
+       
         
+class Object(pygame.sprite.Sprite):
+    def __init__(self,x,y,width,height,name=None):
+        super().__init__()
+        self.rect = pygame.Rect(x,y,width,height)
+        self.image = pygame.Surface((width,height),pygame.SRCALPHA)
+        self.width = width
+        self.height = height
+        self.name = name
+
+        def draw(self,win):
+            win.blit(self.image, (self.rect.x, self.rect.y))
+
+class Block(object):
+    def __init__(self, x ,y , size):
+        super().__init__(x, y , size, size)
+        block = load_block(size)
+        self.image.blit(block, (0,0))
+        self.mask =pygame.mask.from_surface(self.image)
+
+
+
 
 def get_background(name):
     image=pygame.image.load(join('assets','Background',name))
