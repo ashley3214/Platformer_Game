@@ -43,6 +43,14 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
 
     return all_sprites
 
+def get_block(size):
+    path= join('assets', 'Terrain', 'Terrain.png')
+    image = pygame.image.load(path).convert_alpha()
+    surface =pygame.Surface((size, size), pygame.SRACALPHA,32)
+    rect=pygame.Rect(96,0,size,size)
+    surface.blit(image,(0,0), rect)
+    return pygame.transform.scale2x(surface)
+
 class Player(pygame.sprite.Sprite):
     COLOR=(255,0,0)
     GRAVITY=1 #
@@ -116,7 +124,7 @@ class Object(pygame.sprite.Sprite):
 class Block(object):
     def __init__(self, x ,y , size):
         super().__init__(x, y , size, size)
-        block = load_block(size)
+        block = get_block(size)
         self.image.blit(block, (0,0))
         self.mask =pygame.mask.from_surface(self.image)
 
@@ -135,9 +143,12 @@ def get_background(name):
     return tiles, image
 
 
-def draw(window, background,bg_image,player):
+def draw(window, background,bg_image,player, objects):
     for tile in background:
         window.blit(bg_image,tile)
+
+    for obj in objects:
+        obj.draw(window)
 
     player.draw(window)
 
@@ -159,8 +170,11 @@ def handle_move(player):
 def main(window):
     clock = pygame.time.Clock()
     background, bg_image =get_background('Stone.png')
+    
+    block_size = 96
 
     player=Player(100,100,50,50)
+    blocks = [Block(0, HEIGHT - block_size, block_size)]
 
     run = True
     while run:
@@ -172,7 +186,7 @@ def main(window):
                 break
         player.loop(FPS)
         handle_move(player)
-        draw(window,background,bg_image,player)
+        draw(window,background,bg_image,player,blocks)
 
 
     pygame.quit()
